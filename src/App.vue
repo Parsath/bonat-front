@@ -11,25 +11,29 @@ export default {
       router.push('/')
     }
     const isUserRoute = ref(route.name === 'user')
+    const isNotFoundRoute = ref(route.name === 'notFound')
 
     watch(
       () => route.name,
       (newName) => {
         isUserRoute.value = newName === 'user'
+        isNotFoundRoute.value = newName === 'notFound'
       }
     )
 
     // expose to template and other options API hooks
     return {
       isUserRoute,
-      backHome
+      backHome,
+      isNotFoundRoute
     }
   }
 }
 </script>
 
 <template>
-  <header class="flex items-center justify-between p-8">
+  <!-- header needs to only exist if route is valid -->
+  <header class="flex items-center justify-between p-8" v-if="!isNotFoundRoute">
     <img
       alt="Vue logo"
       class="cursor-pointer logo"
