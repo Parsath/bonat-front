@@ -12,9 +12,6 @@ export default {
     }
     const isUserRoute = ref(route.name === 'user')
 
-    console.log('isUserRoute')
-    console.log(isUserRoute)
-
     watch(
       () => route.name,
       (newName) => {
