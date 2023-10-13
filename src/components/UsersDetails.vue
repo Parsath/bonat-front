@@ -20,7 +20,8 @@ export default {
       }
     )
     return {
-      user: computed(() => store.getters['user/getUser'])
+      user: computed(() => store.getters['user/getUser']),
+      error: computed(() => store.getters['user/getError'])
     }
   },
   components: { UserPersonalDetails, UserAddressDetails, UserOtherDetails }
@@ -30,10 +31,16 @@ export default {
 <template>
   <div class="p-4 mb-5 bg-white">
     <!-- add back button -->
-    <div v-if="!user?.name" class="flex items-center justify-start">
+    <div
+      v-if="!user?.name && error"
+      class="flex items-center justify-start w-full h-full max-w-5xl mt-20 text-xl font-semibold text-left text-black sm:text-2xl"
+    >
+      Ooops 😨! It seems like the user you're trying to find does not exist!
+    </div>
+    <div v-if="!user?.name && !error" class="flex items-center justify-start">
       <img src="@/assets/circle-notch.svg" class="w-10 h-10 animate-spin" />
     </div>
-    <div v-else-if="!!user && !!user?.name" class="grid grid-cols-2 grid-rows-2 gap-6 p-6">
+    <div v-else-if="!!user && !!user?.name" class="grid grid-rows-2 gap-6 p-6 md:grid-cols-2">
       <UserPersonalDetails :name="user?.name" :email="user?.email" :phone="user?.phone" />
       <UserAddressDetails
         :street="user?.address?.street"

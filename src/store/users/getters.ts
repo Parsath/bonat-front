@@ -5,5 +5,8 @@ export default {
   },
   getUser(state: UserState) {
     return state.user
+  },
+  getError(state: UserState) {
+    return state.err
   }
 }

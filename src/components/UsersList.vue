@@ -46,7 +46,7 @@ export default {
       <div class="text-2xl font-semibold">User list</div>
       <label
         for="search"
-        class="relative w-1/3 border border-orange-200 rounded-lg focus:ring-orange-300 focus:outline-orange-300 focus:border-red-300"
+        class="relative w-1/2 border border-orange-200 rounded-lg sm:w-1/3 focus:ring-orange-300 focus:outline-orange-300 focus:border-red-300"
       >
         <img
           src="@/assets/search.svg"
@@ -55,7 +55,7 @@ export default {
         />
         <input
           type="text"
-          class="w-full p-4 px-5 rounded-lg shadow-sm indent-10 focus:ring-orange-300 focus:outline-orange-300 focus:border-red-300"
+          class="w-full p-4 px-5 rounded-lg shadow-sm indent-6 sm:indent-10 focus:ring-orange-300 focus:outline-orange-300 focus:border-red-300"
           placeholder="Search user"
           v-model="searchInput"
         />
@@ -100,7 +100,7 @@ export default {
       </table>
       <div
         v-else
-        class="flex items-center justify-start w-full h-full mt-20 text-2xl font-semibold text-center text-black p"
+        class="flex items-center justify-start w-full h-full mt-20 text-xl font-semibold text-center text-black sm:text-2xl p"
       >
         No users found :(
       </div>

@@ -1,17 +1,14 @@
 <script lang="ts">
-import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
-import { ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 export default {
   setup() {
-    const route = useRoute()
     const router = useRouter()
 
     const backHome = () => {
       router.push('/')
     }
 
-    // expose to template and other options API hooks
     return {
       backHome
     }

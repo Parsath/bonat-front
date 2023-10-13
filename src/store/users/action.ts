@@ -13,7 +13,7 @@ export default {
       const userArr = await axios.get('https://jsonplaceholder.typicode.com/users/' + payload.id)
       context.commit('setUser', userArr.data)
     } catch (err) {
-      console.log(err)
+      context.commit('setError', err)
     }
   }
 }

@@ -6,5 +6,8 @@ export default {
   },
   setUser(state: UserState, payload: UserType) {
     state.user = payload
+  },
+  setError(state: UserState, payload: any) {
+    state.err = payload
   }
 }
