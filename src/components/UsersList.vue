@@ -20,7 +20,7 @@ export default {
 <template>
   <div class="min-h-screen p-4 bg-white">
     <div class="w-full h-full shadow-lg bg-slate-200 rounded-xl">
-      <div v-for="user in users" :key="user.id" class="w-20 h-20 bg-red-200">
+      <div v-for="user in users" :key="user.id" class="">
         <div class="flex items-center justify-between p-4 border-b border-blue-300">
           <div class="flex items-center">
             <img class="w-12 h-12 rounded-full" :src="user.avatar" :alt="user.name" />
