@@ -1,46 +1,73 @@
 <script lang="ts">
 import { onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default {
   setup() {
     const store = useStore()
+    const router = useRouter()
+
+    const navigateToUser = (userId: number) => {
+      router.push({ name: 'user', params: { id: userId } })
+    }
 
     onMounted(async () => {
       await store.dispatch('user/getUsers')
     })
 
     return {
-      users: computed(() => store.getters['user/getUsers'])
+      users: computed(() => store.getters['user/getUsers']),
+      navigateToUser
     }
   }
 }
 </script>
 
 <template>
-  <div class="min-h-screen p-4 bg-white">
-    <div class="w-full h-full shadow-lg bg-slate-200 rounded-xl">
-      <div v-for="user in users" :key="user.id" class="">
-        <div class="flex items-center justify-between p-4 border-b border-blue-300">
-          <div class="flex items-center">
-            <img class="w-12 h-12 rounded-full" :src="user.avatar" :alt="user.name" />
-            <div class="ml-4">
-              <h4 class="text-lg font-semibold text-blue-900">
-                {{ user.name }}
-              </h4>
-              <p class="text-sm text-blue-600">{{ user.email }}</p>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <button class="px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg">
-              Edit
-            </button>
-            <button class="px-4 py-2 ml-4 text-sm font-semibold text-white bg-red-600 rounded-lg">
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
+  <div class="p-4 mb-5 bg-white">
+    <div class="w-full overflow-x-auto">
+      <table class="w-full" aria-label="List of users">
+        <thead>
+          <tr class="flex items-center justify-between w-full p-5 py-6 space-x-5 min-w-max">
+            <th class="text-lg font-bold sm:px-5 xs:text-xl lg:text-2xl">Name</th>
+            <th class="text-lg font-bold sm:px-5 xs:text-xl lg:text-2xl">Email</th>
+            <th class="text-lg font-bold sm:px-5 xs:text-xl lg:text-2xl">City</th>
+          </tr>
+        </thead>
+        <!-- <thead
+        class="flex items-center justify-between w-full p-5 py-6 overflow-x-auto hover:bg-slate-300/80"
+      >
+        <td class="text-lg font-bold sm:px-5 xs:text-xl lg:text-2xl">Name</td>
+        <td class="text-lg font-bold sm:px-5 xs:text-xl lg:text-2xl">Email</td>
+        <td class="text-lg font-bold sm:px-5 xs:text-xl lg:text-2xl">City</td>
+      </thead> -->
+        <tbody class="flex flex-col w-full h-full shadow-lg bg-slate-200 rounded-xl">
+          <tr
+            v-for="(user, index) in users"
+            :key="user.id"
+            :class="[
+              'flex items-center justify-between space-x-5  min-w-max w-full p-5 py-6 hover:bg-slate-300/80 cursor-pointer  ',
+              {
+                'rounded-t-xl': index === 0,
+                'rounded-b-xl': index === users.length - 1,
+                'border-b border-slate-400': index !== users.length - 1
+              }
+            ]"
+            @click="navigateToUser(user.id)"
+          >
+            <td class="px-5 font-medium xs:text-lg lg:text-xl whitespace-nowrap w-max">
+              {{ user.name }}
+            </td>
+            <td class="px-5 xs:text-lg lg:text-xl whitespace-nowrap w-max">
+              {{ user.email }}
+            </td>
+            <td class="px-5 xs:text-lg lg:text-xl whitespace-nowrap w-max">
+              {{ user.address.city }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>

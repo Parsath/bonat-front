@@ -6,6 +6,7 @@ import type { UserType } from '../../common/types/user'
 export interface UserState {
   err: any
   users: UserType[]
+  user: UserType | undefined
 }
 
 export default {
@@ -13,7 +14,8 @@ export default {
   state(): UserState {
     return {
       err: undefined,
-      users: [] as UserType[]
+      users: [] as UserType[],
+      user: undefined
     }
   },
   mutations,
